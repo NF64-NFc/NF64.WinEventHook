@@ -35,26 +35,19 @@ namespace NF64.WinEventHooks
         private void WinEventHook_Hooked_Foreground(WinEventHookedEventArgs e)
         {
             var hwnd = e.WindowHandle;
-            var pHwnd = NfWin.GetParent(hwnd);
             var text = NfWin.GetWindowText(hwnd);
-
-            var status = string.Join(", ", new[] {
-                $"IsWindow = {NfWin.IsWindow(hwnd)}",
-                $"IsWindowVisible = {NfWin.IsWindowVisible(hwnd)}",
-                $"IsWindowEnabled = {NfWin.IsWindowEnabled(hwnd)}",
-            });
 
             var pid = (int)NfWin.GetWindowThreadProcessId(hwnd);
             var process = Process.GetProcessById(pid);
 
             var info = string.Join(", ", new[] {
                 $"PID = {process.Id}",
-                $"HWND = {hwnd}({pHwnd})",
+                $"HWND = {hwnd}",
                 $"NAME = {process.ProcessName}",
                 $"TITLE = '{text}'('{process.MainWindowTitle}')",
             });
 
-            this.AddLine($"[{info}] : {status}");
+            this.AddLine($"[{info}]");
         }
 
 

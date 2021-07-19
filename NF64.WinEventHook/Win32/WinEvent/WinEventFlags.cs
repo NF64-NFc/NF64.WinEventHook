@@ -1,6 +1,6 @@
 ﻿namespace NF64.WinEventHooks.Win32.WinEvent
 {
-    public enum WinEventFlags : uint
+    internal enum WinEventFlags : uint
     {
         /// <summary>
         /// Events are ASYNC

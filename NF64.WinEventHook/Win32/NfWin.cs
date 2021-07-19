@@ -4,23 +4,8 @@ using System.Text;
 
 namespace NF64.WinEventHooks.Win32
 {
-    public static class NfWin
+    internal static class NfWin
     {
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool IsWindow(IntPtr hWnd);
-
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool IsWindowVisible(IntPtr hWnd);
-
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool IsWindowEnabled(IntPtr hWnd);
-
-
         [DllImport("user32.dll", ExactSpelling=true, CharSet=CharSet.Auto)]
         public static extern IntPtr GetParent(IntPtr hWnd);
 
@@ -30,12 +15,12 @@ namespace NF64.WinEventHooks.Win32
 
         public static string GetWindowText(IntPtr hwnd)
         {
+            // max length in window title is 255 chars.
             const int nChars = 256;
             var sb = new StringBuilder(nChars);
             GetWindowText(hwnd, sb, nChars);
             return sb.ToString();
         }
-
 
 
         [DllImport("user32.dll", SetLastError=true)]

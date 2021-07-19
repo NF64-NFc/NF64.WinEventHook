@@ -2,7 +2,7 @@
 
 namespace NF64.WinEventHooks.Win32.WinEvent
 {
-    public sealed class WinEventHookedEventArgs
+    internal sealed class WinEventHookedEventArgs
     {
         /// <summary>
         /// Specifies the event that occurred. This value is one of the event constants.

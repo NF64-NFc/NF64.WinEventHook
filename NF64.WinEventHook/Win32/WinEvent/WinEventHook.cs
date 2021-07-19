@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace NF64.WinEventHooks.Win32.WinEvent
 {
-    public static class WinEventHook
+    internal static class WinEventHook
     {
         public static event EventHandler<WinEventHookedEventArgs> Hooked;
 
