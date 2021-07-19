@@ -2,9 +2,9 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace NF64.WinEventHook
+namespace NF64.WinEventHooks.Win32
 {
-    internal static class NfWin
+    public static class NfWin
     {
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]

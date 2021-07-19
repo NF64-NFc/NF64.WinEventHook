@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace NF64.WinEventHook
+namespace NF64.WinEventHooks
 {
-    internal static class App
+    internal static class NfApp
     {
         [STAThread]
         private static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new NfMainForm());
         }
     }
 }

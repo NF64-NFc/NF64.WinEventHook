@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace NF64.WinEventHook
+namespace NF64.WinEventHooks
 {
     internal static class NfProcessExtensions
     {
