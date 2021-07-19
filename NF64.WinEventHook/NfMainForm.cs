@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 using NF64.WinEventHooks.Win32;
-using NF64.WinEventHooks.Win32.WinEvent;
 
 namespace NF64.WinEventHooks
 {
@@ -22,29 +21,20 @@ namespace NF64.WinEventHooks
 
         private void Initialize()
         {
-            WinEventHook.Hooked += this.WinEventHook_Hooked;
-            WinEventHook.Execute();
+            NfWinEventHandler.Execute();
+            NfWinEventHandler.WindowForeground += this.NfWinEventHandler_WindowForeground;
         }
 
-        private void WinEventHook_Hooked(object sender, WinEventHookedEventArgs e)
+        private void NfWinEventHandler_WindowForeground(object sender, NfWindowForegoundEventArgs e)
         {
-            if (e.EventType == WinEvents.EVENT_SYSTEM_FOREGROUND)
-                this.WinEventHook_Hooked_Foreground(e);
-        }
-
-        private void WinEventHook_Hooked_Foreground(WinEventHookedEventArgs e)
-        {
-            var hwnd = e.WindowHandle;
-            var text = NfWin.GetWindowText(hwnd);
-
-            var pid = (int)NfWin.GetWindowThreadProcessId(hwnd);
-            var process = Process.GetProcessById(pid);
+            var title = NfWin.GetWindowText(e.WindowHandle);
+            var process = Process.GetProcessById(e.ProcessId);
 
             var info = string.Join(", ", new[] {
-                $"PID = {process.Id}",
-                $"HWND = {hwnd}",
-                $"NAME = {process.ProcessName}",
-                $"TITLE = '{text}'('{process.MainWindowTitle}')",
+                $"P.ID = {process.Id}",
+                $"HWND = {e.WindowHandle}",
+                $"P.NAME = {process.ProcessName}",
+                $"TITLE = '{title}' ('{process.MainWindowTitle}')",
             });
 
             this.AddLine($"[{info}]");
