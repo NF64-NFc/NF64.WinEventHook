@@ -7,6 +7,8 @@ namespace NF64.WinEventHooks.Win32
     {
         public IntPtr WindowHandle => this._sourceEventArgs.WindowHandle;
 
+        public DateTime DateTime { get; }
+
         public string WindowTitle { get; }
 
         public int ProcessId { get; }
@@ -19,6 +21,7 @@ namespace NF64.WinEventHooks.Win32
         {
             this._sourceEventArgs = e ?? throw new ArgumentNullException(nameof(e));
 
+            this.DateTime = DateTime.Now.AddMilliseconds(this._sourceEventArgs.EventMilliseconds - Environment.TickCount);
             this.ProcessId = (int)NfWin.GetWindowThreadProcessId(e.WindowHandle);
             this.WindowTitle = NfWin.GetWindowText(e.WindowHandle);
         }

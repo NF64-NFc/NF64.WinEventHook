@@ -35,6 +35,7 @@ namespace NF64.WinEventHooks
                 $"HWND = {e.WindowHandle}",
                 $"P.NAME = {process.ProcessName}",
                 $"TITLE = '{title}' ('{process.MainWindowTitle}')",
+                $"DateTime = '{e.DateTime}'",
             });
 
             this.AddLine($"[{info}]");
