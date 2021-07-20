@@ -1,5 +1,8 @@
-﻿namespace NF64.WinEventHooks.Win32.WinEvent
+﻿using System;
+
+namespace NF64.WinEventHooks.Win32.WinEvent
 {
+    [Flags]
     internal enum WinEventFlags : uint
     {
         /// <summary>
