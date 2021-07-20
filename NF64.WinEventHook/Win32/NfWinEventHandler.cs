@@ -3,7 +3,7 @@ using NF64.WinEventHooks.Win32.WinEvent;
 
 namespace NF64.WinEventHooks.Win32
 {
-    public static class NfWinEventHandler
+    internal static class NfWinEventHandler
     {
         public static event EventHandler<NfWindowForegoundEventArgs> WindowForeground;
 

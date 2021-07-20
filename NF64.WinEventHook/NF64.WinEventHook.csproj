@@ -38,6 +38,8 @@
   <ItemGroup>
     <Compile Include="NfApp.cs" />
     <Compile Include="NfProcessExtensions.cs" />
+    <Compile Include="NfWindowActivationChangedEventArgs.cs" />
+    <Compile Include="NfWindowActivationHandler.cs" />
     <Compile Include="Win32\NfWindowForegoundEventArgs.cs" />
     <Compile Include="Win32\NfWinEventHandler.cs" />
     <Compile Include="Win32\WinEvent\WinEventHookedEventArgs.cs" />

@@ -7,25 +7,23 @@ namespace NF64.WinEventHooks
 {
     public partial class NfMainForm : Form
     {
+        private readonly NfWindowActivationHandler _handler = new NfWindowActivationHandler();
+
+
         public NfMainForm()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void NfMainForm_Load(object sender, EventArgs e)
         {
-            this.Initialize();
+            this._handler.WindowActivate += this.NfWindowActivationHandler_WindowActivate;
+            this._handler.WindowDeactivate += this.NfWindowActivationHandler_WindowDeactivate;
         }
 
 
-        private void Initialize()
-        {
-            NfWinEventHandler.Execute();
-            NfWinEventHandler.WindowForeground += this.NfWinEventHandler_WindowForeground;
-        }
-
-        private void NfWinEventHandler_WindowForeground(object sender, NfWindowForegoundEventArgs e)
+        private void NfWindowActivationHandler_WindowActivate(object sender, NfWindowActivationChangedEventArgs e)
         {
             var title = NfWin.GetWindowText(e.WindowHandle);
             var process = Process.GetProcessById(e.ProcessId);
@@ -39,6 +37,22 @@ namespace NF64.WinEventHooks
             });
 
             this.AddLine($"[{info}]");
+        }
+
+        private void NfWindowActivationHandler_WindowDeactivate(object sender, NfWindowActivationChangedEventArgs e)
+        {
+            var title = NfWin.GetWindowText(e.WindowHandle);
+            var process = Process.GetProcessById(e.ProcessId);
+
+             var info = string.Join(", ", new[] {
+                $"P.ID = {process.Id}",
+                $"HWND = {e.WindowHandle}",
+                $"P.NAME = {process.ProcessName}",
+                $"TITLE = '{title}' ('{process.MainWindowTitle}')",
+                $"DateTime = '{e.DateTime}'",
+            });
+
+            this.AddLine($"Deactivate : [{info}]");
         }
 
 

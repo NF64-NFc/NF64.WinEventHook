@@ -13,6 +13,9 @@ namespace NF64.WinEventHooks
 
         public static string GetMainModuleFileName(this Process process, int buffer = 1024)
         {
+            if (process == null)
+                throw new ArgumentNullException(nameof(process));
+
             var fileNameBuilder = new StringBuilder(buffer);
             var bufferLength = (uint)fileNameBuilder.Capacity + 1;
             return QueryFullProcessImageName(process.Handle, 0, fileNameBuilder, ref bufferLength)
