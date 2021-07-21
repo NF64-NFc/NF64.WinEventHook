@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows.Forms;
 using NF64.WinEventHooks.Win32;
 
@@ -25,6 +26,9 @@ namespace NF64.WinEventHooks
 
         private void NfWindowActivationHandler_WindowActivate(object sender, NfWindowActivationChangedEventArgs e)
         {
+            // 最低100msの遅延を設けないとエクスプローラーのタイトルを正しく取得できない
+            Thread.Sleep(100);
+
             var title = NfWin.GetWindowText(e.WindowHandle);
             var process = Process.GetProcessById(e.ProcessId);
 
